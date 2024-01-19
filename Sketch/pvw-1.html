@@ -1,0 +1,51 @@
+<!--
+PROMPT:
+
+* describe PvWatts' solar panel interface 
+* given the description above, produce a single-page app wireframe using html, css
+* revise the above, include a sample placeholder image for a google map
+
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PVWatts Wireframe</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>PVWatts Solar Calculator</h1>
+
+        <div class="input-section">
+            <h2>Location Input</h2>
+            <input type="text" placeholder="Enter address, city, or ZIP code">
+            <!-- Alternatively, a map integration can be added here -->
+        </div>
+
+        <div class="input-section">
+            <h2>System Info Input</h2>
+            <input type="number" placeholder="System Size (kW)">
+            <input type="number" placeholder="Panel Tilt (degrees)">
+            <input type="number" placeholder="Panel Azimuth (degrees)">
+            <!-- Dropdowns for panel type and system losses can be added here -->
+        </div>
+
+        <div class="output-section">
+            <h2>Performance Estimates</h2>
+            <p>Estimated Monthly Energy Production: <span id="monthly-output">0 kWh</span></p>
+            <p>Estimated Annual Energy Production: <span id="annual-output">0 kWh</span></p>
+        </div>
+
+        <div class="graph-section">
+            <h2>Graphical Output</h2>
+            <!-- Placeholder for graphs -->
+            <div class="graph-placeholder">Graphs will be displayed here</div>
+        </div>
+
+        <div class="download-section">
+            <button>Download Data</button>
+        </div>
+    </div>
+</body>
+</html>

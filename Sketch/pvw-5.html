@@ -1,0 +1,213 @@
+<!--
+PROMPT:
+
+* before the download card, add another called "results" which gives the pvwatts results screen including a placeholder for a graph 
+
+
+* the below is a wireframe for a pvwatts clone app, with a results section. write a fake json response from a pvwatts api, and display it in the results section. 
+
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PVWatts Wireframe</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <div class="container">
+        <div class="header-logo">
+            <i class="material-icons">brightness_7</i>
+        </div>
+        <h1>PVWatts Solar Calculator</h1>
+
+        <div class="accordion" id="accordionSections">
+            <div class="card">
+                <div class="card-header" id="locationHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#locationInput" aria-expanded="true" aria-controls="locationInput">
+                            <i class="material-icons">location_on</i> Location Input
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="locationInput" class="collapse show" aria-labelledby="locationHeading" data-parent="#accordionSections">
+                    <div class="card-body">
+                        <input type="text" class="form-control" placeholder="Enter address, city, or ZIP code">
+                        <!-- Alternatively, a map integration can be added here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="systemHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#systemInfoInput" aria-expanded="false" aria-controls="systemInfoInput">
+                            <i class="material-icons">settings</i> System Info Input
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="systemInfoInput" class="collapse" aria-labelledby="systemHeading" data-parent="#accordionSections">
+                    <div class="card-body">
+                        <input type="number" class="form-control" placeholder="System Size (kW)">
+                        <input type="number" class="form-control" placeholder="Panel Tilt (degrees)">
+                        <input type="number" class="form-control" placeholder="Panel Azimuth (degrees)">
+                        <!-- Dropdowns for panel type and system losses can be added here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="performanceHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#performanceEstimates" aria-expanded="false" aria-controls="performanceEstimates">
+                            <i class="material-icons">bar_chart</i> Performance Estimates
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="performanceEstimates" class="collapse" aria-labelledby="performanceHeading" data-parent="#accordionSections">
+                    <div class="card-body">
+                        <p>Estimated Monthly Energy Production: <span id="monthly-output">0 kWh</span></p>
+                        <p>Estimated Annual Energy Production: <span id="annual-output">0 kWh</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="resultsHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#results" aria-expanded="false" aria-controls="results">
+                            <i class="material-icons">equalizer</i> Results
+                        </button>
+                    </h2>
+                </div>
+            
+                <div id="results" class="collapse" aria-labelledby="resultsHeading" data-parent="#accordionSections">
+                    <div class="card-body">
+                        <p><strong>Location:</strong> <span id="city"></span>, <span id="state"></span></p>
+                        <p><strong>Latitude:</strong> <span id="latitude"></span></p>
+                        <p><strong>Longitude:</strong> <span id="longitude"></span></p>
+            
+                        <h4>System Input:</h4>
+                        <p><strong>System Capacity:</strong> <span id="system-capacity"></span></p>
+                        <p><strong>Module Type:</strong> <span id="module-type"></span></p>
+                        <p><strong>System Losses:</strong> <span id="system-losses"></span></p>
+            
+                        <h4>Monthly Energy Production:</h4>
+                        <div class="row">
+                            <!-- Display monthly AC and DC energy production -->
+                            <div class="col-md-6">
+                                <p>AC Energy (kWh):</p>
+                                <ul>
+                                    <li>January: <span id="ac-month-1"></span></li>
+                                    <li>February: <span id="ac-month-2"></span></li>
+                                    <!-- Include entries for all 12 months -->
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <p>DC Energy (kWh):</p>
+                                <ul>
+                                    <li>January: <span id="dc-month-1"></span></li>
+                                    <li>February: <span id="dc-month-2"></span></li>
+                                    <!-- Include entries for all 12 months -->
+                                </ul>
+                            </div>
+                        </div>
+            
+                        <h4>Annual Energy Production:</h4>
+                        <p><strong>AC Annual Energy:</strong> <span id="ac-annual"></span></p>
+                        <p><strong>Solar Radiation (Annual):</strong> <span id="solrad-annual"></span></p>
+                        <p><strong>Capacity Factor:</strong> <span id="capacity-factor"></span></p>
+                        <p><strong>Annual Degradation:</strong> <span id="annual-degradation"></span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header" id="downloadHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#downloadData" aria-expanded="false" aria-controls="downloadData">
+                            <i class="material-icons">file_download</i> Download Data
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="downloadData" class="collapse" aria-labelledby="downloadHeading" data-parent="#accordionSections">
+                    <div class="card-body">
+                        <button class="btn btn-primary">Download Data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <script>
+
+        // Fake JSON response from the PVWatts API
+        var fakePVWattsResponse = {
+            "station_info": {
+                "city": "Sample City",
+                "state": "CA",
+                "latitude": 34.0522,
+                "longitude": -118.2437
+            },
+            "inputs": {
+                "system_capacity": 5, // kW
+                "module_type": 0,
+                "losses": 14.08 // %
+            },
+            "errors": [],
+            "warnings": [],
+            "outputs": {
+                "ac_monthly": [
+                    600, 650, 700, 750, 800, 850, 900, 950, 1000, 1050, 1100, 1150 // Monthly AC energy production (kWh)
+                ],
+                "dc_monthly": [
+                    625, 675, 725, 775, 825, 875, 925, 975, 1025, 1075, 1125, 1175 // Monthly DC energy production (kWh)
+                ],
+                "ac_annual": 9000, // Annual AC energy production (kWh)
+                "solrad_annual": 5.0, // Annual solar radiation (kWh/m^2/day)
+                "capacity_factor": 18.5, // Capacity factor (%)
+                "annual_degradation": 0.5 // Annual degradation (%)
+            }
+        };
+        
+        // Function to update the results section with the fake response
+        function updateResults() {
+            // Update location information
+            document.getElementById("city").textContent = fakePVWattsResponse.station_info.city;
+            document.getElementById("state").textContent = fakePVWattsResponse.station_info.state;
+            document.getElementById("latitude").textContent = fakePVWattsResponse.station_info.latitude;
+            document.getElementById("longitude").textContent = fakePVWattsResponse.station_info.longitude;
+        
+            // Update system input values
+            document.getElementById("system-capacity").textContent = fakePVWattsResponse.inputs.system_capacity + " kW";
+            document.getElementById("module-type").textContent = fakePVWattsResponse.inputs.module_type;
+            document.getElementById("system-losses").textContent = fakePVWattsResponse.inputs.losses + " %";
+        
+            // Update monthly and annual output values
+            for (var i = 0; i < 12; i++) {
+                document.getElementById("ac-month-" + (i + 1)).textContent = fakePVWattsResponse.outputs.ac_monthly[i] + " kWh";
+                document.getElementById("dc-month-" + (i + 1)).textContent = fakePVWattsResponse.outputs.dc_monthly[i] + " kWh";
+            }
+            document.getElementById("ac-annual").textContent = fakePVWattsResponse.outputs.ac_annual + " kWh";
+            document.getElementById("solrad-annual").textContent = fakePVWattsResponse.outputs.solrad_annual + " kWh/m^2/day";
+            document.getElementById("capacity-factor").textContent = fakePVWattsResponse.outputs.capacity_factor + " %";
+            document.getElementById("annual-degradation").textContent = fakePVWattsResponse.outputs.annual_degradation + " %";
+        }
+        
+        // Call the function to display the fake response
+        updateResults();
+        </script>
+</body>
+</html>
+
+

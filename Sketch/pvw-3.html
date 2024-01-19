@@ -1,0 +1,119 @@
+<!--
+PROMPT:
+
+* given the above, write a custom css file to apply a nice blue/yellow theme. using google material icons for add some icons to each tab, and a logo to the page
+
+* give me the html with the icons in it
+
+-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PVWatts Wireframe</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <div class="container">
+        <div class="header-logo">
+            <i class="material-icons">brightness_7</i>
+        </div>
+        <h1>PVWatts Solar Calculator</h1>
+
+        <div class="accordion" id="accordionSections">
+            <div class="card">
+                <div class="card-header" id="locationHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#locationInput" aria-expanded="true" aria-controls="locationInput">
+                            <i class="material-icons">location_on</i> Location Input
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="locationInput" class="collapse show" aria-labelledby="locationHeading" data-parent="#accordionSections">
+                    <div class="card-body">
+                        <input type="text" class="form-control" placeholder="Enter address, city, or ZIP code">
+                        <!-- Alternatively, a map integration can be added here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="systemHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#systemInfoInput" aria-expanded="false" aria-controls="systemInfoInput">
+                            <i class="material-icons">settings</i> System Info Input
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="systemInfoInput" class="collapse" aria-labelledby="systemHeading" data-parent="#accordionSections">
+                    <div class="card-body">
+                        <input type="number" class="form-control" placeholder="System Size (kW)">
+                        <input type="number" class="form-control" placeholder="Panel Tilt (degrees)">
+                        <input type="number" class="form-control" placeholder="Panel Azimuth (degrees)">
+                        <!-- Dropdowns for panel type and system losses can be added here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="performanceHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#performanceEstimates" aria-expanded="false" aria-controls="performanceEstimates">
+                            <i class="material-icons">bar_chart</i> Performance Estimates
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="performanceEstimates" class="collapse" aria-labelledby="performanceHeading" data-parent="#accordionSections">
+                    <div class="card-body">
+                        <p>Estimated Monthly Energy Production: <span id="monthly-output">0 kWh</span></p>
+                        <p>Estimated Annual Energy Production: <span id="annual-output">0 kWh</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="graphHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#graphicalOutput" aria-expanded="false" aria-controls="graphicalOutput">
+                            <i class="material-icons">insert_chart</i> Graphical Output
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="graphicalOutput" class="collapse" aria-labelledby="graphHeading" data-parent="#accordionSections">
+                    <div class="card-body">
+                        <!-- Placeholder for graphs -->
+                        <div class="graph-placeholder">Graphs will be displayed here</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="downloadHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#downloadData" aria-expanded="false" aria-controls="downloadData">
+                            <i class="material-icons">file_download</i> Download Data
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="downloadData" class="collapse" aria-labelledby="downloadHeading" data-parent="#accordionSections">
+                    <div class="card-body">
+                        <button class="btn btn-primary">Download Data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!--
+PROMPT:
+*  the below is a wireframe for a pvwatts clone app, with a results section. write a fake json response from a pvwatts api, and display it in the results section. 
+
+*  revise `fakePVWattsResponse` above, include all the relevant output variables from a real pvwatts model 
+
+* provide the new results section with the relevant html parts as above
+
+* revise the above code, replace the json object with a call to `fetch` 
+-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PVWatts Wireframe</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <div class="container">
+        <div class="header-logo">
+            <i class="material-icons">brightness_7</i>
+        </div>
+        <h1>PVWatts Solar Calculator</h1>
+
+        <div class="accordion" id="accordionSections">
+            <div class="card">
+                <div class="card-header" id="locationHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#locationInput" aria-expanded="true" aria-controls="locationInput">
+                            <i class="material-icons">location_on</i> Location Input
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="locationInput" class="collapse show" aria-labelledby="locationHeading" data-parent="#accordionSections">
+                    <div class="card-body">
+                        <input type="text" class="form-control" placeholder="Enter address, city, or ZIP code">
+                        <!-- Alternatively, a map integration can be added here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="systemHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#systemInfoInput" aria-expanded="false" aria-controls="systemInfoInput">
+                            <i class="material-icons">settings</i> System Info Input
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="systemInfoInput" class="collapse" aria-labelledby="systemHeading" data-parent="#accordionSections">
+                    <div class="card-body">
+                        <input type="number" class="form-control" placeholder="System Size (kW)">
+                        <input type="number" class="form-control" placeholder="Panel Tilt (degrees)">
+                        <input type="number" class="form-control" placeholder="Panel Azimuth (degrees)">
+                        <!-- Dropdowns for panel type and system losses can be added here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="performanceHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#performanceEstimates" aria-expanded="false" aria-controls="performanceEstimates">
+                            <i class="material-icons">bar_chart</i> Performance Estimates
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="performanceEstimates" class="collapse" aria-labelledby="performanceHeading" data-parent="#accordionSections">
+                    <div class="card-body">
+                        <p>Estimated Monthly Energy Production: <span id="monthly-output">0 kWh</span></p>
+                        <p>Estimated Annual Energy Production: <span id="annual-output">0 kWh</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="resultsHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#results" aria-expanded="false" aria-controls="results">
+                            <i class="material-icons">equalizer</i> Results
+                        </button>
+                    </h2>
+                </div>
+            
+                <div id="results" class="collapse" aria-labelledby="resultsHeading" data-parent="#accordionSections">
+                    <div class="card-body">
+                        <p><strong>Location:</strong> <span id="city"></span>, <span id="state"></span></p>
+                        <p><strong>Latitude:</strong> <span id="latitude"></span></p>
+                        <p><strong>Longitude:</strong> <span id="longitude"></span></p>
+            
+                        <h4>System Input:</h4>
+                        <p><strong>System Capacity:</strong> <span id="system-capacity"></span></p>
+                        <p><strong>Module Type:</strong> <span id="module-type"></span></p>
+                        <p><strong>System Losses:</strong> <span id="system-losses"></span></p>
+            
+                        <h4>Monthly Energy Production:</h4>
+                        <div class="row">
+                            <!-- Display monthly AC and DC energy production -->
+                            <div class="col-md-6">
+                                <p>AC Energy (kWh):</p>
+                                <ul>
+                                    <li>January: <span id="ac-month-1"></span></li>
+                                    <li>February: <span id="ac-month-2"></span></li>
+                                    <!-- Include entries for all 12 months -->
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <p>DC Energy (kWh):</p>
+                                <ul>
+                                    <li>January: <span id="dc-month-1"></span></li>
+                                    <li>February: <span id="dc-month-2"></span></li>
+                                    <!-- Include entries for all 12 months -->
+                                </ul>
+                            </div>
+                        </div>
+            
+                        <h4>Annual Energy Production:</h4>
+                        <p><strong>AC Annual Energy:</strong> <span id="ac-annual"></span></p>
+                        <p><strong>Solar Radiation (Annual):</strong> <span id="solrad-annual"></span></p>
+                        <p><strong>Capacity Factor:</strong> <span id="capacity-factor"></span></p>
+                        <p><strong>Annual Degradation:</strong> <span id="annual-degradation"></span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header" id="downloadHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#downloadData" aria-expanded="false" aria-controls="downloadData">
+                            <i class="material-icons">file_download</i> Download Data
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="downloadData" class="collapse" aria-labelledby="downloadHeading" data-parent="#accordionSections">
+                    <div class="card-body">
+                        <button class="btn btn-primary">Download Data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <!-- Updated script to fetch data from a remote server -->
+<script>
+    // Function to update the results section with fetched data
+    function updateResults(data) {
+        // Update location information
+        document.getElementById("city").textContent = data.station_info.city;
+        document.getElementById("state").textContent = data.station_info.state;
+        document.getElementById("latitude").textContent = data.station_info.latitude;
+        document.getElementById("longitude").textContent = data.station_info.longitude;
+
+        // Update system input values
+        document.getElementById("system-capacity").textContent = data.inputs.system_capacity + " kW";
+        document.getElementById("module-type").textContent = data.inputs.module_type;
+        document.getElementById("system-losses").textContent = data.inputs.losses + " %";
+
+        // Update monthly and annual output values
+        for (var i = 0; i < 12; i++) {
+            document.getElementById("ac-month-" + (i + 1)).textContent = data.outputs.ac_monthly[i] + " kWh";
+            document.getElementById("dc-month-" + (i + 1)).textContent = data.outputs.dc_monthly[i] + " kWh";
+        }
+        document.getElementById("ac-annual").textContent = data.outputs.ac_annual + " kWh";
+        document.getElementById("solrad-annual").textContent = data.outputs.solrad_annual + " kWh/m^2/day";
+        document.getElementById("capacity-factor").textContent = data.outputs.capacity_factor + " %";
+        document.getElementById("annual-degradation").textContent = data.outputs.annual_degradation + " %";
+    }
+
+    // Fetch data from the PVWatts API
+    fetch('http://localhost:5321/api/request-data')
+        .then(response => response.json())
+        .then(data => {
+            // Call the function to display the fetched data
+            updateResults(data);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+</script>
+
+</body>
+</html>
+
+
