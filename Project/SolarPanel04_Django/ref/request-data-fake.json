@@ -1,0 +1,24 @@
+{
+    "error": false,
+    "data": [
+        { "month": "January", "radiation": 11, "energy": 1021, "profit": 21 },
+        { "month": "February", "radiation": 12, "energy": 1022, "profit": 22 },
+        { "month": "March", "radiation": 13, "energy": 1023, "profit": 23 },
+        { "month": "April", "radiation": 14, "energy": 1024, "profit": 24 },
+        { "month": "May", "radiation": 15, "energy": 1025, "profit": 25 },
+        { "month": "June", "radiation": 16, "energy": 1026, "profit": 26 },
+        { "month": "July", "radiation": 17, "energy": 1027, "profit": 27 },
+        { "month": "August", "radiation": 18, "energy": 1028, "profit": 28 },
+        { "month": "September", "radiation": 19, "energy": 1029, "profit": 29 },
+        { "month": "October", "radiation": 20, "energy": 1030, "profit": 33 },
+        { "month": "November", "radiation": 21, "energy": 1031, "profit": 34 },
+        { "month": "December", "radiation": 22, "energy": 1032, "profit": 35 }
+    ],
+    "summary": {
+        "estEnergyPrices": [10, 20, 30, 10, 20, 30, 10, 20, 30, 10, 20, 30],
+        "estAnnualRadiation": 12345678,
+        "estAnnualEnergy": 987654321,
+        "estFinancialSavings": 1000,
+        "downloadLink": "/download/someid"
+    }
+}

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarEstimatePro - Results</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <header>
+        <h1>SolarEstimatePro: Results</h1>
+    </header>
+    <main class="accordion" id="resultsAccordion">
+        <!-- Summary  -->
+        <section class="card">
+            <div class="card-header" id="step0Header">
+                <h2>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                        data-target="#step0Content" aria-expanded="false" aria-controls="step0Content">
+                        Summary of Your Input
+                    </button>
+                </h2>
+            </div>
+            <div id="step0Content" class="collapse" aria-labelledby="step0Header" data-parent="#resultsAccordion">
+
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Location:</th>
+                                <td id="summary-location">London, UK</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Area:</th>
+                                <td id="summary-area">1,000m^2</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">System Capacity (kW):</th>
+                                <td id="summary-capacity">1,000</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Array Type:</th>
+                                <td id="summary-array-type">AT</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Module Type:</th>
+                                <td id="summary-module-type">MT</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tilt Angle (°):</th>
+                                <td id="summary-tilt">8deg</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Azimuth Angle (°):</th>
+                                <td id="summary-azimuth">81deg</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">System Losses (%):</th>
+                                <td id="summary-losses">e95%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <form>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" id="calculate-btn">Calculate</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Energy Production Results -->
+        <section class="card">
+            <div class="card-header" id="step1-energy-results-header">
+                <h2>
+                    <button class="btn btn-link" type="button" data-toggle="collapse"
+                        data-target="#step1-energy-results-content" aria-expanded="true"
+                        aria-controls="step1-energy-results-content">
+                        Energy Production Results
+                    </button>
+                </h2>
+            </div>
+
+            <div id="step1-energy-results-content" class="collapse" aria-labelledby="step1-energy-results-header"
+                data-parent="#resultsAccordion">
+                <div class="card-body">
+                    <!-- <canvas id="energy-chart"></canvas> -->
+                    <img src="https://via.placeholder.com/400x300" alt="Placeholder Chart">
+                </div>
+            </div>
+        </section>
+
+        <!-- Financial Results -->
+        <section class="card">
+            <div class="card-header" id="step2-financial-results-header">
+                <h2>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                        data-target="#step2-financial-results-content" aria-expanded="false"
+                        aria-controls="step2-financial-results-content">
+                        Results
+                    </button>
+                </h2>
+            </div>
+            <div id="step2-financial-results-content" class="collapse" aria-labelledby="step2-financial-results-header"
+                data-parent="#resultsAccordion">
+                <div class="card-body">
+                    <p>Estimated Potential Energy Savings: <span id="potential-savings">£1,500</span></p>
+                    <div id="energy-money-graph">
+                        <img src="https://via.placeholder.com/400x300" alt="Placeholder Chart">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Result -->
+        <section class="card">
+            <div class="card-header" id="step3-download-result-header">
+                <h2>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                        data-target="#step3-download-result-content" aria-expanded="false"
+                        aria-controls="step3-download-result-content">
+                        The Raw Data
+                    </button>
+                </h2>
+            </div>
+            <div id="step3-download-result-content" class="collapse" aria-labelledby="step3-download-result-header"
+                data-parent="#resultsAccordion">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Solar Radiation (kWh/m2 per day)</th>
+                                <th>Energy (kWh)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jan</td>
+                                <td>2</td>
+                                <td>5,000</td>
+                            </tr>
+                            <tr>
+                                <td>Feb</td>
+                                <td>2</td>
+                                <td>5,000</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Annual Total:</th>
+                                <td>3.00</td>
+                                <td>100,000</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <a href="?=download" download class="btn btn-primary">Download Energy Data</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+
+    <footer>
+        <p>by Michael Burgess; inspired by PVWatts</p>
+    </footer>
+
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+</body>
+
+</html>

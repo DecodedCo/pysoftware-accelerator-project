@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarEstimatePro - Results</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700&display=swap');
+
+        * {
+            font-family: 'Work Sans', sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            padding: 2em;
+        }
+
+        /* .main.accordion {} */
+
+        .card-header {
+            background-color: #f8f9fa;
+        }
+
+        .card-header button {
+            color: #007BFF;
+            font-size: 0.9em;
+        }
+
+        /* Style the card bodies */
+        .card-body {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-top: none;
+        }
+
+        /* Style the table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        /* Style table headers */
+        .table th {
+            background-color: #007BFF;
+            color: #fff;
+            text-align: left;
+        }
+
+        /* Style table rows */
+        .table td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+        }
+
+        /* Style the "Download Energy Data" button */
+        .btn-primary {
+            background-color: #007BFF;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style the footer */
+        footer {
+            /* height: 3em; */
+            /* position:fixed; */
+            /* bottom: 0%; */
+            width: 100%;
+            text-align: center;
+            background-color: #f8f9fa;
+            padding: 1em;
+        }
+
+
+        .site-icon i {
+            position: absolute;
+            left: 1em;
+            font-size: 6em;
+            color: yellow;
+        }
+
+        header a {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="site-icon"><i class="material-icons-outlined">brightness_7</i></div>
+        <h1>SolarEstimatePro</h1>
+        <a href="home-wf-css-js-api-final.html"><i class="material-icons">home</i></a>
+    </header>
+    <main class="accordion" id="resultsAccordion">
+        <section class="card">
+            <div class="card-header" id="step4Header">
+                <h2>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                        data-target="#step0Content" aria-expanded="false" aria-controls="step4Content">
+                        <i class="material-icons-outlined">description</i> Summary of Your Input
+                    </button>
+                </h2>
+            </div>
+            <div id="step0Content" class="collapse" aria-labelledby="step0Header" data-parent="#wizardAccordion">
+
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Location:</th>
+                                <td id="summary-location">London, UK</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Area:</th>
+                                <td id="summary-area">1,000m^2</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">System Capacity (kW):</th>
+                                <td id="summary-capacity">1,000</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Array Type:</th>
+                                <td id="summary-array-type">AT</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Module Type:</th>
+                                <td id="summary-module-type">MT</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tilt Angle (°):</th>
+                                <td id="summary-tilt">8deg</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Azimuth Angle (°):</th>
+                                <td id="summary-azimuth">81deg</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">System Losses (%):</th>
+                                <td id="summary-losses">e95%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <form>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" id="calculate-btn">Calculate</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Energy Production Results -->
+        <section class="card">
+            <div class="card-header" id="step1-energy-results-header">
+                <h2>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                        data-target="#step1-energy-results-content" aria-expanded="false"
+                        aria-controls="step1-energy-results-content">
+                        <i class="material-icons">battery_charging_full</i> Energy Production Results
+                    </button>
+                </h2>
+            </div>
+
+            <div id="step1-energy-results-content" class="collapse" aria-labelledby="step1-energy-results-header"
+                data-parent="#resultsAccordion">
+                <div class="card-body">
+                    <canvas id="energyRadiationChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Financial Results -->
+        <section class="card">
+            <div class="card-header" id="step2-financial-results-header">
+                <h2>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                        data-target="#step2-financial-results-content" aria-expanded="false"
+                        aria-controls="step2-financial-results-content">
+                        <i class="material-icons">attach_money</i> Results
+                    </button>
+                </h2>
+            </div>
+            <div id="step2-financial-results-content" class="collapse" aria-labelledby="step2-financial-results-header"
+                data-parent="#resultsAccordion">
+                <div class="card-body">
+                    <p>Estimated Potential Energy Savings: <span id="potential-savings">£1,500</span></p>
+
+                    <canvas id="energyMoneyChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Result -->
+        <section class="card">
+            <div class="card-header" id="step3-download-result-header">
+                <h2>
+                    <button 
+                        class="btn btn-link collapsed" 
+                        type="button" 
+                        data-toggle="collapse"
+                        data-target="#step3-download-result-content" 
+                        aria-expanded="false"
+                        aria-controls="step3-download-result-content">
+                        <i class="material-icons">cloud_download</i> The Raw Data
+                    </button>
+                </h2>
+            </div>
+            <div id="step3-download-result-content" class="collapse" aria-labelledby="step3-download-result-header"
+                data-parent="#resultsAccordion">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Solar Radiation (kWh/m2 per day)</th>
+                                <th>Energy (kWh)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTableBody">
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Annual Total:</th>
+                                <td id="annualRadiation">3.00</td>
+                                <td id="annualEnergy">100,000</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <a href="?=download" download class="btn btn-primary">Download Energy Data</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <script>
+
+        window.onload = sendDataRequest;
+
+        async function sendDataRequest() {
+
+            const rid = parseInt(window.location.href.split('resultID=').at(-1));
+
+            const url = 'http://127.0.0.1:8000/api/request-data';
+
+            const options = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'text/plain',
+                }
+            };
+
+            fetch(url, options)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    return response.json();
+                })
+                .then(responseData => {
+                    if (responseData.error) {
+                        throw new Error('The API reported an error: ' + responseData.error);
+                    }
+
+                    createEnergyRadiationChart(responseData);
+                    createEnergyMoneyChart(responseData);
+                    fillTable(responseData);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+        }
+
+        function createEnergyRadiationChart(result) {
+            const ctx = document.getElementById('energyRadiationChart').getContext('2d');
+            const data = {
+                labels: result.data.map(item => item.month),
+                datasets: [{
+                    label: 'Solar Radiation (kWh/m2 per day)',
+                    data: result.data.map(item => item.radiation),
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            };
+            const options = {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            };
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: options
+            });
+        }
+
+
+
+
+        function createEnergyMoneyChart(result) {
+            const ctx = document.getElementById('energyMoneyChart').getContext('2d');
+            const data = {
+                labels: result.data.map(item => item.month),
+                datasets: [{
+                    label: 'Profit (£)',
+                    data: result.data.map(item => item.profit),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            };
+            const options = {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            };
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: options
+            });
+        }
+
+
+
+        function fillTable(result) {
+            const tableBody = document.getElementById('dataTableBody');
+            result.data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.month}</td>
+                    <td>${item.radiation}</td>
+                    <td>${item.energy}</td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+
+            // Fill annual totals from the "summary" section
+            const summary = result.summary;
+            document.getElementById('annualRadiation').textContent = summary.estAnnualRadiation.toLocaleString();
+            document.getElementById('annualEnergy').textContent = summary.estAnnualEnergy.toLocaleString();
+        }
+
+
+
+
+    </script>
+    <footer>
+        <p>by Michael Burgess; inspired by PVWatts</p>
+    </footer>
+
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+</body>
+
+</html>

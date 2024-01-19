@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarEstimatePro - Results</title>
+</head>
+<body>
+    <header>
+        <h1>SolarEstimatePro: Results</h1>
+    </header>
+    <main>
+        <section id="step0-summary">
+            <div>
+                <h2>
+                    Summary of Your Input
+                </h2>
+            </div>
+            <div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Location:</th>
+                            <td id="summary-location"></td>
+                        </tr>
+                        <tr>
+                            <th>Area:</th>
+                            <td id="summary-area">1,000m^2</td>
+                        </tr>
+                        <tr>
+                            <th>System Capacity (kW):</th>
+                            <td id="summary-capacity"></td>
+                        </tr>
+                        <tr>
+                            <th>Array Type:</th>
+                            <td id="summary-array-type"></td>
+                        </tr>
+                        <tr>
+                            <th>Module Type:</th>
+                            <td id="summary-module-type"></td>
+                        </tr>
+                        <tr>
+                            <th>Tilt Angle (°):</th>
+                            <td id="summary-tilt"></td>
+                        </tr>
+                        <tr>
+                            <th>Azimuth Angle (°):</th>
+                            <td id="summary-azimuth"></td>
+                        </tr>
+                        <tr>
+                            <th>System Losses (%):</th>
+                            <td id="summary-losses"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section id="step1-energy-results">
+            <h2>Energy Production Results</h2>
+            <div id="energy-chart">
+                <img src="https://via.placeholder.com/400x300" alt="Placeholder Chart">
+            </div>
+        </section>
+        <section id="step2-financial-results">
+            <h2>Results</h2>
+            <p>Estimated Potential Energy Savings: <span id="potential-savings">£1,500</span></p>
+            <div id="energy-money-graph">
+                <img src="https://via.placeholder.com/400x300" alt="Placeholder Chart">
+            </div>
+        </section>
+        <section id="step3-download-result">
+            <h2>The Raw Data</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Solar Radiation (kWh/m2 per day)</th>
+                        <th>Energy (kWh)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Jan</td>
+                        <td>2</td>
+                        <td>5,000</td>
+                    </tr>
+                    <tr>
+                        <td>Feb</td>
+                        <td>2</td>
+                        <td>5,000</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Annual Total:</th>
+                        <td>3.00</td>
+                        <td>100,000</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <h3>Download</h3>
+            <a href="?=download" download>Download Energy Data</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>by Michael Burgess; inspired by PVWatts</p>
+    </footer>
+</body>
+</html>

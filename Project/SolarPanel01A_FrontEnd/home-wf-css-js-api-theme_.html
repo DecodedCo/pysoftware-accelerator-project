@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarEstimatePro</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700&display=swap');
+
+        * {
+            font-family: 'Work Sans', sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            padding: 2em;
+        }
+
+        /* .main.accordion {} */
+
+        .card-header {
+            background-color: #f8f9fa;
+        }
+
+        .card-header button {
+            color: #007BFF;
+            font-size: 0.9em;
+        }
+
+        /* Style the card bodies */
+        .card-body {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-top: none;
+        }
+
+        /* Style the table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        /* Style table headers */
+        .table th {
+            background-color: #007BFF;
+            color: #fff;
+            text-align: left;
+            width: 25%;
+        }
+
+        /* Style table rows */
+        .table td {
+            border: 1px solid #dee2e6;
+            font-size: 1.2em;
+            text-align: center;
+            font-family: monospace;
+        }
+
+        /* Style the "Download Energy Data" button */
+        .btn-primary {
+            background-color: #007BFF;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style the footer */
+        footer {
+            /* height: 3em; */
+            /* position:fixed; */
+            /* bottom: 0%; */
+            width: 100%;
+            text-align: center;
+            background-color: #f8f9fa;
+            padding: 1em;
+        }
+
+        .site-icon i {
+            position: absolute;
+            left: 1em;
+            font-size: 6em;
+            color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="site-icon"><i class="material-icons-outlined">brightness_7</i></div>
+        <h1>Welcome to SolarEstimatePro</h1>
+        <p>
+            Estimate the energy production and savings of your solar PV system
+        </p>
+    </header>
+    <main class="accordion" id="wizardAccordion">
+        <!-- Step 1 -->
+        <div class="card">
+            <div class="card-header" id="step1Header">
+                <h2>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#step1Content"
+                        aria-expanded="true" aria-controls="step1Content">
+                        <i class="material-icons">location_on</i> Step 1: Choose your location
+                    </button>
+                </h2>
+            </div>
+
+            <div id="step1Content" class="collapse" aria-labelledby="step1Header" data-parent="#wizardAccordion">
+                <div class="card-body">
+                    <form id="location-form">
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" class="form-control" id="location"
+                                placeholder="Enter latitude, longitude">
+                        </div>
+                        <div id="drawable-map">
+                            <img src="https://via.placeholder.com/400x300" alt="Placeholder Drawable Map">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <section class="card">
+            <div class="card-header" id="step2Header">
+                <h2>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                        data-target="#step2Content" aria-expanded="false" aria-controls="step2Content">
+                        <i class="material-icons">map</i> Step 2: Choose your solar panel location and area
+                    </button>
+                </h2>
+
+            </div>
+            <div id="step2Content" class="collapse" aria-labelledby="step2Header" data-parent="#wizardAccordion">
+                <div class="card-body">
+                    <h3>Area: 1,000m^2</h3>
+                    <input id="area-result" type="hidden" value="1,000" />
+                    <div id="drawable-map">
+                        <img src="https://via.placeholder.com/400x300" alt="Placeholder Drawable Map">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 3 -->
+        <section class="card">
+            <div class="card-header" id="step3Header">
+                <h2>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                        data-target="#step3Content" aria-expanded="false" aria-controls="step3Content">
+                        <i class="material-icons-outlined">settings</i> Step 3: Choose your panel and system parameters
+                    </button>
+                </h2>
+            </div>
+            <div id="step3Content" class="collapse" aria-labelledby="step3Header" data-parent="#wizardAccordion">
+                <div class="card-body">
+                    <form id="estimate-form">
+                        <div class="form-group">
+                            <label for="capacity">System Capacity (kW)</label>
+                            <input type="number" class="form-control" id="capacity" step="0.1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="array-type">Array Type</label>
+                            <input type="text" class="form-control" id="array-type">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="module-type">Module Type</label>
+                            <input type="text" class="form-control" id="module-type">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tilt">Tilt Angle (°)</label>
+                            <input type="number" class="form-control" id="tilt">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="azimuth">Azimuth Angle (°)</label>
+                            <input type="number" class="form-control" id="azimuth">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="losses">System Losses (%)</label>
+                            <input type="number" class="form-control" id="losses">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 4 -->
+        <section class="card">
+            <div class="card-header" id="step4Header">
+                <h2>
+                    <button id="summary-header-btn" class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                        data-target="#step4Content" aria-expanded="false" aria-controls="step4Content">
+                        <i class="material-icons-outlined">description</i> Step 4: Summary of Your Input
+                    </button>
+                </h2>
+            </div>
+            <div id="step4Content" class="collapse" aria-labelledby="step4Header" data-parent="#wizardAccordion">
+
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Location:</th>
+                                <td id="summary-location">London, UK</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Area:</th>
+                                <td id="summary-area-result">1,000m^2</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">System Capacity (kW):</th>
+                                <td id="summary-capacity">1,000</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Array Type:</th>
+                                <td id="summary-array-type">AT</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Module Type:</th>
+                                <td id="summary-module-type">MT</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tilt Angle (°):</th>
+                                <td id="summary-tilt">8deg</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Azimuth Angle (°):</th>
+                                <td id="summary-azimuth">81deg</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">System Losses (%):</th>
+                                <td id="summary-losses">e95%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <form>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" id="calculate-btn">Calculate</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+
+
+        <footer>
+            <p>by Michael Burgess; inspired by PVWatts</p>
+        </footer>
+    </main>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+    <script>
+
+        const userDataElements = [
+            'location', 'area-result', 'capacity',
+            'array-type', 'module-type', 'tilt', 'azimuth', 'losses',
+        ];
+
+        function collateData() {
+            const data = {};
+
+            for (const id of userDataElements) {
+                data[id] = document.getElementById(id).value;
+            }
+
+            return data;
+        }
+
+
+        function showData() {
+            const data = collateData();
+
+            for (const id of userDataElements) {
+                document
+                    .getElementById('summary-' + id)
+                    .textContent = data[id];
+            }
+        }
+        const progressBtn = document.getElementById('calculate-btn');
+
+        function fakeProgress() {
+            progressBtn.textContent = '0%';
+
+            const intervalID = setInterval(function () {
+                if(progressBtn.textContent.includes('Ready')) {
+                    clearInterval(intervalID);
+                    return;
+                }
+
+                if(progressBtn.textContent.includes('%')) {                
+                    const pc = parseInt(progressBtn.textContent.split('%').at(0));
+                    
+                    progressBtn.textContent = (pc === 95) ?  '..' : `${pc + 5}%`;
+
+                    return;
+                }
+
+                progressBtn.textContent += `..`;
+            }, 500);
+        }
+
+        async function sendData() {
+            const data = collateData();
+            const url = 'api/submit-userdata.json';
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            };
+
+
+            fakeProgress();
+
+            fetch(url, options)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    return response.json();
+                })
+                .then(responseData => {
+                    if(responseData.error) {
+                        throw new Error('The API reported an error: ' + responseData.error);
+                    }
+
+                    progressBtn.textContent = 'Ready!';
+                    progressBtn.classList.add('ready-btn');
+
+                    progressBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+
+                        const here = window.location.href.substring(0, 
+                            window.location.href.lastIndexOf("/") + 1
+                        );
+
+                        window.location.href = here + '/' + 'results-wf-css-js-api-final.html?resultID=' + responseData.resultID;
+                    })
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+        }
+
+        document
+            .getElementById('calculate-btn')
+            .addEventListener('click', sendData);
+
+
+        document
+            .getElementById('summary-header-btn')
+            .addEventListener('click', showData);
+
+    </script>
+</body>
+
+</html>

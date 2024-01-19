@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map with Shape Drawing</title>
+    <style>
+        #map {
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section>
+            <div id="map"></div>
+        </section>
+        <section>
+            <h1 id="result"></h1>
+        </section>
+    </main>
+    <script>
+
+        function drawMap() {
+            createDrawingMap(document.getElementById('map'),
+                (area) => document.getElementById('result').innerHTML = 
+                    `${area.toFixed(2)} m<sup>2</sup>`
+            );
+        }
+
+        function createDrawingMap(mapDomElement, whenCompleteFn) {
+
+
+
+            const mapOptions = {
+                center: { lat: 55, lng: 0 },
+                zoom: 5
+            };
+
+            const map = new google.maps.Map(mapDomElement, mapOptions);
+
+            const drawingManager = new google.maps.drawing.DrawingManager({
+                drawingMode: google.maps.drawing.OverlayType.POLYGON,
+                drawingControl: true,
+                drawingControlOptions: {
+                    position: google.maps.ControlPosition.TOP_CENTER,
+                    drawingModes: [google.maps.drawing.OverlayType.POLYGON]
+                }
+            });
+
+            drawingManager.setMap(map);
+
+            var infowindow = new google.maps.InfoWindow();
+
+            google.maps.event.addListener(drawingManager, 'overlaycomplete', function (event) {
+                if (event.type === google.maps.drawing.OverlayType.POLYGON) {
+                    const area = google.maps.geometry.spherical.computeArea(event.overlay.getPath());
+                    whenCompleteFn(area);
+                }
+            });
+        }
+
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRgDUBmY7ltOsxbNOCb8wMo5SEmSofPGo&libraries=drawing,geometry&callback=drawMap"></script>
+
+
+
+    <footer>
+        <p>by Michael Burgess; inspired by PVWatts</p>
+    </footer>
+</body>
+
+</html>
